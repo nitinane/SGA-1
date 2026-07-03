@@ -1,0 +1,53 @@
+Command log for all questions
+=============================
+
+Q1:
+whoami
+groups
+echo "$SHELL"
+pwd
+ls -ls
+curl -s --max-time 10 https://youtube.com > /dev/null && echo "Network: youtube.com reachable"
+
+Q2:
+mkdir -p secure_workspace/{docs,src,logs}
+touch secure_workspace/docs/plan.txt secure_workspace/src/app.txt secure_workspace/logs/activity.log
+ls -ld secure_workspace secure_workspace/*
+chmod 750 secure_workspace
+chmod 750 secure_workspace/docs secure_workspace/src secure_workspace/logs
+ls -l secure_workspace/*
+umask
+
+Q3:
+rm -f original.txt hardlink.txt symlink.txt
+echo "Linux link test file" > original.txt
+ln original.txt hardlink.txt
+ln -s original.txt symlink.txt
+ls -li
+stat original.txt hardlink.txt symlink.txt
+cat original.txt
+cat hardlink.txt
+cat symlink.txt
+rm original.txt
+cat hardlink.txt
+cat symlink.txt
+
+Q4:
+echo "sample log line" > app.log
+lsof | head -n 20
+exec 3<app.log
+lsof -p $$
+ls -l /proc/$$/fd
+auto
+auto
+ls -l > stdout.txt
+ls /not_a_real_path 2> stderr.txt
+(ls -l && ls /not_a_real_path) > combined.txt 2>&1
+ulimit -a
+exec 3<&-
+
+Q5:
+lsblk
+mount | head
+df -h
+df -i

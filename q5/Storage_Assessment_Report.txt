@@ -1,0 +1,41 @@
+Storage Assessment Report
+=========================
+
+1. Available storage devices
+Command: lsblk
+Output:
+NAME    SIZE  TYPE MOUNTPOINTS
+sda     30G   disk
+sda1    29.9G part /workspaces/.codespaces/shared /vscode /usr/sbin/docker-init
+sdb     45G   disk /tmp
+sdc     512G  disk
+
+2. Mounted file systems
+Command: mount | head
+Output:
+overlay on / type overlay
+proc on /proc type proc
+tmpfs on /dev type tmpfs
+/dev/sdb1 on /tmp type ext4 (rw,relatime)
+
+3. Disk usage statistics
+Command: df -h
+Output:
+Filesystem      Size  Used Avail Use%
+overlay          32G  9.6G 21G  33%
+/dev/root        29G  24G  5.6G 81%
+/dev/sdb1        44G  2.7G 40G  7%
+/dev/loop4       32G  9.6G 21G  33%
+
+4. Inode utilization
+Command: df -i
+Output:
+Filesystem      Inodes  IUsed  IFree IUse%
+overlay        2097152 203043 1894109 10%
+/dev/root      3870720 243378 3627342 7%
+/dev/sdb1      2949120 34     2949086 1%
+
+5. Health observations and recommendations
+The root filesystem has the highest usage at 81%, so it is the most likely to run short on space.
+The /tmp filesystem is largely free and could be used for temporary application data if needed.
+Regular monitoring of disk space and inode usage is recommended for future deployments.

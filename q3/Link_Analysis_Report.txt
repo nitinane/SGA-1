@@ -1,0 +1,40 @@
+Link Analysis Report
+====================
+
+1. File creation and link creation
+Command: rm -f original.txt hardlink.txt symlink.txt
+Command: echo "Linux link test file" > original.txt
+Command: ln original.txt hardlink.txt
+Command: ln -s original.txt symlink.txt
+
+2. Inode numbers
+Command: ls -li
+Output:
+1310805 -rw-rw-rw- 2 codespace codespace 21 Jul  3 17:16 hardlink.txt
+1310805 -rw-rw-rw- 2 codespace codespace 21 Jul  3 17:16 original.txt
+1310806 lrwxrwxrwx 1 codespace codespace 12 Jul  3 17:16 symlink.txt -> original.txt
+
+3. Metadata collected
+Command: stat original.txt hardlink.txt symlink.txt
+Output:
+original.txt and hardlink.txt share inode 1310805 and link count 2.
+symlink.txt has inode 1310806 and is a symbolic link.
+
+4. Behavior after deleting the original file
+Command: rm original.txt
+Command: ls -li
+Output:
+hardlink.txt remains available
+symlink.txt becomes broken and cannot be read
+
+Command: cat hardlink.txt
+Output:
+Linux link test file
+
+Command: cat symlink.txt
+Output:
+cat: symlink.txt: No such file or directory
+
+5. Conclusion
+A hard link points to the same inode and continues to work after the original file is removed.
+A symbolic link stores a path to the target and breaks if the target is deleted.

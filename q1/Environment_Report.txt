@@ -1,0 +1,43 @@
+Environment Verification Report
+============================
+
+1. Username and groups
+Command: whoami
+Output:
+codespace
+
+Command: groups
+Output:
+codespace pipx python oryx golang docker sdkman rvm php conda nvs nvm hugo ssh
+
+2. Current shell
+Command: echo "$SHELL"
+Output:
+/bin/bash
+
+3. Current working directory
+Command: pwd
+Output:
+/workspaces/SGA-1
+
+4. Workspace contents
+Command: ls -ls
+Output:
+total 24
+4 -rw-rw-rw-  1 codespace root         7 Jul  3 17:06 README.md
+4 drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 17:09 q1
+4 drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 17:09 q2
+4 drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 17:09 q3
+4 drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 17:09 q4
+4 drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 17:09 q5
+
+5. Network connectivity
+Command: curl -s --max-time 10 https://youtube.com > /dev/null && echo "Network: youtube.com reachable"
+Output:
+Network: youtube.com reachable
+
+Observations:
+The account is running as the user codespace and belongs to the listed system groups.
+The active shell is /bin/bash and the working directory is /workspaces/SGA-1.
+The workspace contains the expected q1 through q5 folders and the README file.
+Network connectivity to youtube.com was successful within the timeout.

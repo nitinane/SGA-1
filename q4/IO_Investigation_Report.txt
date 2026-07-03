@@ -1,0 +1,41 @@
+I/O Investigation Report
+========================
+
+1. Open files and file descriptors
+Command: echo "sample log line" > app.log
+Command: lsof | head -n 20
+Output:
+The shell and system processes were listed, including standard file descriptors.
+
+Command: exec 3<app.log
+Command: lsof -p $$
+Output:
+The shell process showed fd 3 as a read handle to /workspaces/SGA-1/q4/app.log.
+
+Command: ls -l /proc/$$/fd
+Output:
+0 -> /dev/pts/3
+1 -> /dev/pts/3
+2 -> /dev/pts/3
+3 -> /workspaces/SGA-1/q4/app.log
+6 -> /dev/null
+
+2. Output redirection and error redirection
+Command: ls -l > stdout.txt
+Command: ls /not_a_real_path 2> stderr.txt
+Command: (ls -l && ls /not_a_real_path) > combined.txt 2>&1
+Output:
+stdout.txt captured the standard output of ls.
+stderr.txt captured the error output from the missing path.
+combined.txt captured both output streams in one file.
+
+3. Resource limits observed
+Command: ulimit -a
+Output:
+open files (-n) 524288
+file size (-f) unlimited
+stack size (-s) 8192
+
+4. Explanation of Linux file I/O handling
+Linux exposes files through descriptors such as 0, 1, 2, and additional custom descriptors.
+Redirection changes where these descriptors point, allowing output, errors, and combined streams to be written to files or other targets.

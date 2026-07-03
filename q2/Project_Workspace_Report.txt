@@ -1,0 +1,56 @@
+Project Workspace Report
+========================
+
+1. Directory structure created
+Command: mkdir -p secure_workspace/{docs,src,logs}
+Output:
+Directory created successfully.
+
+Command: touch secure_workspace/docs/plan.txt secure_workspace/src/app.txt secure_workspace/logs/activity.log
+Output:
+Files created successfully.
+
+2. Permissions before and after modification
+Initial permissions:
+Command: ls -ld secure_workspace secure_workspace/*
+Output:
+drwxrwxrwx+ 5 codespace codespace 4096 Jul  3 17:12 secure_workspace
+drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 17:12 secure_workspace/docs
+drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 17:12 secure_workspace/logs
+drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 17:12 secure_workspace/src
+
+After modification:
+Command: chmod 750 secure_workspace
+Command: chmod 750 secure_workspace/docs secure_workspace/src secure_workspace/logs
+Command: ls -ld secure_workspace secure_workspace/*
+Output:
+drwxr-x---+ 5 codespace codespace 4096 Jul  3 17:12 secure_workspace
+drwxr-x---+ 2 codespace codespace 4096 Jul  3 17:12 secure_workspace/logs
+drwxr-x---+ 2 codespace codespace 4096 Jul  3 17:12 secure_workspace/src
+drwxr-x---+ 2 codespace codespace 4096 Jul  3 17:12 secure_workspace/docs
+
+File-level permissions:
+Command: ls -l secure_workspace/*
+Output:
+secure_workspace/docs:
+-rw-r----- 1 codespace codespace 0 Jul  3 17:12 plan.txt
+
+secure_workspace/logs:
+-rw-rw-rw- 1 codespace codespace 0 Jul  3 17:12 activity.log
+
+secure_workspace/src:
+-rw-r----- 1 codespace codespace 0 Jul  3 17:12 app.txt
+
+3. Ownership details
+All created directories and files were owned by:
+User: codespace
+Group: codespace
+
+4. Umask value used
+Command: umask
+Output:
+0022
+
+5. Explanation of permission protection
+The parent directory was restricted to owner access only for the group and others, reducing the chance of unauthorized viewing or editing.
+The files inside the workspace were also limited so that only the owner could read or write them, which helps protect project data from accidental exposure.
